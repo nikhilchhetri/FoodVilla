@@ -10,7 +10,6 @@ const RestaurantMenu = () => {
   const { restaurantId: id } = useParams();
   const [restaurantData, restaurantMenuData] = useRestaurantMenu(id);
   const dispatch = useDispatch();
-  console.log(restaurantMenuData);
   const handleAddItem = (item) => {
     dispatch(addItems(item));
   };

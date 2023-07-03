@@ -11,7 +11,6 @@ class Profile extends Component {
   }
   async componentDidMount() {
     this.timer = setInterval(() => {
-      console.log("This is interval");
     }, 1000);
     const data = await fetch("https://api.github.com/users/nikhilchhetri");
     const json = await data.json();

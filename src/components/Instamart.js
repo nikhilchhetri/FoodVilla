@@ -9,7 +9,6 @@ const Section = ({ title, description, isVisible, setIsVisible }) => {
       >
         {title}
       </h1>
-      {console.log(isVisible)}
       {isVisible && <p>{description}</p>}
     </div>
   );
