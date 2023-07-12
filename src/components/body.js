@@ -17,7 +17,6 @@ const BodyComponent = () => {
   async function getRestaurants() {
     const data = await fetch(FETCH_RESTAURANT_URL);
     const json = await data.json();
-    console.log(json);
     setfilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
     setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
   }
