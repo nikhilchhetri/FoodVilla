@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { filterData } from "../../utils/helper";
 import useOnline from "../../utils/useOnline";
+import { FETCH_RESTAURANT_URL } from "../config";
 
 const BodyComponent = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
@@ -14,21 +15,13 @@ const BodyComponent = () => {
   }, []);
 
   async function getRestaurants() {
-    const data = await fetch(
-      "https://www.swiggy.com/mapi/homepage/getCards?lat=30.260068044271886&lng=78.06077219545841"
-    );
+    const data = await fetch(FETCH_RESTAURANT_URL);
     const json = await data.json();
-
-    setfilteredRestaurants(
-      json?.data.success?.cards[1]?.gridWidget?.gridElements?.infoWithStyle
-        ?.restaurants
-    );
-    setAllRestaurants(
-      json?.data.success?.cards[1]?.gridWidget?.gridElements?.infoWithStyle
-        ?.restaurants
-    );
+    console.log(json);
+    setfilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+    setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
   }
-  
+
   const isOnline = useOnline();
   if (!isOnline) {
     return <h1>You are currently offline</h1>;
@@ -74,10 +67,10 @@ const BodyComponent = () => {
         )} */
           filteredRestaurants.map((restaurant) => (
             <Link
-              to={"/restaurant/" + restaurant.info.id}
-              key={restaurant.info.id}
+              to={"/restaurant/" + restaurant.data.id}
+              key={restaurant.data.id}
             >
-              <RestaurantCard {...restaurant.info} />
+              <RestaurantCard {...restaurant.data} />
             </Link>
           ))
         }
